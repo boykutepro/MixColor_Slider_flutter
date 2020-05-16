@@ -30,6 +30,7 @@ class _DemoSliderState extends State<DemoSlider> {
   double red = 0.0;
   double green = 0.0;
   double blue = 0.0;
+  double rotateValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,16 +66,31 @@ class _DemoSliderState extends State<DemoSlider> {
             setState(() {
               blue = newBlue;
             });
-            },
-            min: 0.0,
-            max: 255.0,
-            activeColor: Colors.blue
+          },
+          min: 0.0,
+          max: 255.0,
+          activeColor: Colors.blue
         ),
         SizedBox(height: 20),
-        Container(
-          height: 100,
-          width: 100,
-          color: Color.fromARGB(255, red.floor(), green.toInt(), blue.floor()),
+        Slider(
+          value: rotateValue,
+          onChanged: (newRotateValue) {
+            setState(() {
+              rotateValue = newRotateValue;
+            });
+          },
+          min: 0.0,
+          max: 360.0,
+          activeColor: Colors.amber,
+        ),
+        SizedBox(height: 20),
+        RotationTransition(
+          turns: AlwaysStoppedAnimation(rotateValue/360),
+          child: Container(
+            height: 100,
+            width: 100,
+            color: Color.fromARGB(255, red.floor(), green.toInt(), blue.floor()),
+          )
         )
       ]),
     );
