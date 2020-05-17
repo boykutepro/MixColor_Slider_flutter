@@ -27,10 +27,10 @@ class DemoSlider extends StatefulWidget {
 }
 
 class _DemoSliderState extends State<DemoSlider> {
-  double red = 0.0;
-  double green = 0.0;
-  double blue = 0.0;
-  double rotateValue = 0.0;
+  double red = 0;
+  double green = 0;
+  double blue = 0;
+  double rotateValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class _DemoSliderState extends State<DemoSlider> {
               green = newGreen;
             });
             },
-            min: 0.0,
-            max: 255.0,
+            min: 0,
+            max: 255,
             activeColor: Colors.green
         ),
         SizedBox(height: 20),
@@ -67,8 +67,8 @@ class _DemoSliderState extends State<DemoSlider> {
               blue = newBlue;
             });
           },
-          min: 0.0,
-          max: 255.0,
+          min: 0,
+          max: 255,
           activeColor: Colors.blue
         ),
         SizedBox(height: 20),
@@ -79,19 +79,29 @@ class _DemoSliderState extends State<DemoSlider> {
               rotateValue = newRotateValue;
             });
           },
-          min: 0.0,
-          max: 360.0,
+          min: 0,
+          max: 360,
           activeColor: Colors.amber,
         ),
         SizedBox(height: 20),
-        RotationTransition(
-          turns: AlwaysStoppedAnimation(rotateValue/360),
-          child: Container(
-            height: 100,
-            width: 100,
-            color: Color.fromARGB(255, red.floor(), green.toInt(), blue.floor()),
-          )
-        )
+        Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            RotationTransition(
+              turns: AlwaysStoppedAnimation(rotateValue/360),   
+              child: Container(
+              height: 250,
+              width: 250,
+              color: Color.fromARGB(255, red.toInt(), green.toInt(), blue.toInt()),
+                ),   
+            ),
+            Text('R: $red, G: $green, B: $blue, Angel: $rotateValue', 
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.orange,
+            ),),
+          ],
+        ),
       ]),
     );
   }
